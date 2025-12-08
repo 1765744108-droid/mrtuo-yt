@@ -2,10 +2,12 @@ import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, command }) => {
     const env = loadEnv(mode, '.', '');
+    // 检查是否为GitHub Pages部署（通过DEPLOY_TARGET环境变量或命令参数）
+    const isGitHubPages = process.env.DEPLOY_TARGET === 'github-pages' || command.includes('deploy');
     return {
-      base: mode === 'production' ? '/mryzdyt/' : '/',
+      base: isGitHubPages ? '/mryzdyt/' : '/',
       server: {
         port: 3000,
         host: '0.0.0.0',
