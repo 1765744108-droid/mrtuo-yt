@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import { ModelData } from '../types';
 import { COLORS } from '../constants';
 import { modelCache } from '../utils/modelCache';
-import { OverlapInfo } from './Scene';
+import { OverlapInfo } from './Scene.tsx';
 
 // Error boundary component for handling model loading errors
 class ErrorBoundary extends React.Component<{ children: React.ReactNode; fallback: React.ReactNode }, { hasError: boolean }> {
@@ -226,7 +226,7 @@ const BuildingModelContent: React.FC<BuildingModelProps> = ({ data, onSelect, on
           const moveSpeed = 0.05; // Increased sensitivity for better dragging
           
           const newX = memo.initialPos[0] + (x * moveSpeed);
-          const newY = memo.initialPos[1] - (y * moveSpeed); // Positive Y for intuitive movement
+          const newY = memo.initialPos[1] + (y * moveSpeed); // Positive Y for intuitive movement
           const newZ = memo.initialPos[2];
 
           // Allow free movement in 3D space

@@ -2,8 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, Environment, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
-import BuildingModel from './BuildingModel';
-import PerformanceMonitor from './PerformanceMonitor';
+import BuildingModel from './BuildingModel.tsx';
+import PerformanceMonitor from './PerformanceMonitor.tsx';
 import { ModelData } from '../types';
 import { COLORS, INITIAL_CAMERA_POSITION } from '../constants';
 

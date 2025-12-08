@@ -40,7 +40,7 @@ const ControlPanel: React.FC<{
   };
 
   const adjustHeight = (direction: 'up' | 'down') => {
-    const step = 0.05; // Adjust this value to control height change per click
+    const step = 0.025; // Adjust this value to control height change per click (1/2 of current value)
     const currentPos = [...model.position];
     
     if (direction === 'up') {
