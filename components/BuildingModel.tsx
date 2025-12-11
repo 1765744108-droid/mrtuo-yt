@@ -153,9 +153,9 @@ const BuildingModelContent: React.FC<BuildingModelProps> = ({ data, onSelect, on
             
             // Set material color based on model name
             if (data.name === '锚定') {
-              mat.color.set('#baccd9');
+              mat.color.set('#1781b5');
             } else if (data.name === '现实') {
-              mat.color.set('#dfecd5');
+              mat.color.set('#ee3f4d');
             } else {
               mat.color.set(0xffffff); // Default to white if name doesn't match
             }
@@ -192,9 +192,9 @@ const BuildingModelContent: React.FC<BuildingModelProps> = ({ data, onSelect, on
           
           // Set material color based on model name
           if (data.name === '锚定') {
-            transparentMaterial.color.set('#baccd9');
+            transparentMaterial.color.set('#1781b5');
           } else if (data.name === '现实') {
-            transparentMaterial.color.set('#dfecd5');
+            transparentMaterial.color.set('#ee3f4d');
           } else {
             transparentMaterial.color.set(0xffffff); // Default to white if name doesn't match
           }
