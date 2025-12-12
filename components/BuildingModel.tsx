@@ -144,8 +144,19 @@ const BuildingModelContent: React.FC<BuildingModelProps> = ({ data, onSelect, on
           
           materials.forEach((mat) => {
             // Base material properties for solid display
-            mat.transparent = true;
-            mat.opacity = 0.7; // 70% opacity for both models
+            if (data.name === '锚定') {
+              // Anchor model remains opaque
+              mat.transparent = false;
+              mat.opacity = 1.0; // 100% opacity for anchor model
+            } else if (data.name === '现实') {
+              // Reality model with 60% opacity
+              mat.transparent = true;
+              mat.opacity = 0.6; // 60% opacity for reality model
+            } else {
+              // Other models default to opaque
+              mat.transparent = false;
+              mat.opacity = 1.0;
+            }
             mat.depthWrite = true;
             mat.side = THREE.FrontSide;
             mat.depthTest = true;

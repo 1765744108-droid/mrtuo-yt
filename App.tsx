@@ -22,7 +22,7 @@ const INITIAL_MODELS: ModelData[] = [
     id: 'model-2',
     name: '现实',
     url: DEFAULT_MODEL_2_URL,
-    position: [1.5, 0, 0],
+    position: [1.5, 0.005, 0],
     rotation: [0, 0, 0], // 初始朝上显示
     scale: [10, 10, 10], 
     visible: true,
