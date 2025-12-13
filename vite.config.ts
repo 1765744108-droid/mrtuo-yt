@@ -20,6 +20,8 @@ export default defineConfig(({ mode }) => {
         }
       },
       build: {
+        // Increase chunk size warning limit to avoid warnings for large three.js chunk
+        chunkSizeWarningLimit: 2000, // 2MB
         rollupOptions: {
           output: {
             manualChunks: {
