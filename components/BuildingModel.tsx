@@ -222,25 +222,29 @@ const BuildingModelContent: React.FC<BuildingModelProps> = ({ data, onSelect, on
   // Gesture Handling
   const bind = useGesture(
     {
-      onDragStart: ({ event }) => {
-        // Prevent OrbitControls from interfering
-        event.stopPropagation();
-        if (!data.selected) {
-           onSelect(data.id);
+      onDragStart: ({ event, touches }) => {
+        // Only handle single finger drags for model movement
+        if (touches === 1) {
+          // Prevent OrbitControls from interfering with single finger drags
+          event.stopPropagation();
+          if (!data.selected) {
+             onSelect(data.id);
+          }
         }
+        // Allow multi-finger events to propagate to OrbitControls for zoom/rotate
       },
       onDrag: ({ movement: [x, y], touches, event, memo = { initialPos: data.position, initialRot: data.rotation } }) => {
-        event.stopPropagation();
-        
-        if (!data.selected) return memo;
-
-        // Ground boundaries (6x6 grid = -3 to 3 in X and Z)
-        const GRID_SIZE = 6;
-        const BOUNDARY_MIN = -GRID_SIZE / 2;
-        const BOUNDARY_MAX = GRID_SIZE / 2;
-        
-        // 1 Finger = Move on ground (X, Z)
+        // Only handle single finger drags for model movement
         if (touches === 1) {
+          event.stopPropagation();
+          
+          if (!data.selected) return memo;
+
+          // Ground boundaries (6x6 grid = -3 to 3 in X and Z)
+          const GRID_SIZE = 6;
+          const BOUNDARY_MIN = -GRID_SIZE / 2;
+          const BOUNDARY_MAX = GRID_SIZE / 2;
+          
           // Mapping: Screen X -> World X, Screen Y -> World Z
           const moveSpeed = 0.05; // Increased sensitivity for better dragging
           
@@ -250,20 +254,8 @@ const BuildingModelContent: React.FC<BuildingModelProps> = ({ data, onSelect, on
 
           // Keep Y position fixed to stay on ground
           onUpdate(data.id, { position: [newX, memo.initialPos[1], newZ] });
-        }        
-        // 2 Fingers = Move in 3D space (X, Y, Z)
-        if (touches === 2) {
-          // Mapping: Screen X -> World X, Screen Y -> World Y
-          const moveSpeed = 0.05; // Increased sensitivity for better dragging
-          
-          // Calculate new position with X boundary constraints (Z stays fixed)
-          const newX = Math.max(BOUNDARY_MIN, Math.min(BOUNDARY_MAX, memo.initialPos[0] + (x * moveSpeed)));
-          const newY = memo.initialPos[1] + (y * moveSpeed); // Positive Y for intuitive movement
-          const newZ = memo.initialPos[2];
-
-          // Allow free movement in Y but constrain X
-          onUpdate(data.id, { position: [newX, newY, newZ] });
         }
+        // Allow multi-finger events to propagate to OrbitControls for zoom/rotate
         
         return memo;
       },
@@ -277,7 +269,7 @@ const BuildingModelContent: React.FC<BuildingModelProps> = ({ data, onSelect, on
         filterTaps: true,
         threshold: 10,
         // We do not need 'from' when using 'movement' as movement is always delta from start
-      }, 
+      }
     }
   );
 
